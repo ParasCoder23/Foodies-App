@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const ListFood = () => {
   return (
@@ -6,4 +6,4 @@ const ListFood = () => {
   )
 }
 
-export default ListFood
+export default ListFood;
