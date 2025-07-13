@@ -10,7 +10,7 @@ export const StoreContextProvider = (props) => {
 
     const [quantites, setQuantites] = useState({})
 
-    const increaseQty = (foodId) => {        
+    const increaseQty = (foodId) => {                
         setQuantites((prev) => ({...prev, [foodId]: (prev[foodId] || 0) + 1 }));
     }
 
@@ -18,12 +18,20 @@ export const StoreContextProvider = (props) => {
         setQuantites((prev) => ({...prev, [foodId]: prev[foodId] > 0 ? prev[foodId] - 1 : 0 }));
     }
 
+    const removeFromCart = (foodId) => {
+        setQuantites((prevQuantites) => {
+            const updateQuantites = {...prevQuantites};
+            delete updateQuantites[foodId]
+            return updateQuantites;
+        })
+    }
 
     const contextValue = {
         foodList,
         increaseQty,
         decreaseQty,
-        quantites
+        quantites,
+        removeFromCart
     };
 
     useEffect(() => {

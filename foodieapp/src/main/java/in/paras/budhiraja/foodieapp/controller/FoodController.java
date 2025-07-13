@@ -31,7 +31,7 @@ public class FoodController {
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/image")
     public ResponseEntity<String> deleteImage(@RequestParam("publicID")String id){
         foodService.deleteFile(id);
         return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
