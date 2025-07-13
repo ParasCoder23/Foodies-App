@@ -7,7 +7,7 @@ import cakes from './cake.png'
 import icecream from './ice cream.png'
 import pizza from './pizza.png'
 import rolls from './rolls.png'
-import salad from './salad.png'
+import salad from './salad.jpeg'
 
 export const assets = {
     logo,
@@ -24,7 +24,7 @@ export const categories = [
         icon: burger
     },
     {
-        category: 'Cakes',
+        category: 'Cake',
         icon: cakes
     },
     {
@@ -37,7 +37,11 @@ export const categories = [
     },
     {
         category: 'Salad',
-        icon:salad
+        icon: salad
     },
+    {
+        category: 'Rolls',
+        icon: rolls
+    }
 
 ]
