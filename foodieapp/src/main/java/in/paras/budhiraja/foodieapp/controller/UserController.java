@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/foods")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
@@ -17,6 +17,7 @@ public class UserController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse register(@RequestBody UserRequest request){
+
         return userService.registerUser(request);
     }
 
