@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashMap;
@@ -25,5 +26,11 @@ public class CartEntity {
     public CartEntity(String userId, Map<String, Integer> items){
         this.items = items;
         this.userId = userId;
+    }
+
+    public CartEntity(String userId, String loggedInUserId, HashMap<String, Integer> items) {
+        this.items = items;
+        this.id = userId;
+        this.userId = loggedInUserId;
     }
 }
