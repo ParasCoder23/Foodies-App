@@ -1,7 +1,39 @@
+import { useState } from 'react'
 import './Register.css'
 import { Link } from 'react-router-dom'
+import axios from 'axios';
 
 const Register = () => {
+
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+
+  const onChangeHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setData(data => ({
+      ...data, [name]: value
+    }));
+  }
+
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8080/api/register', data);
+      if (response.status === 201) {
+        toast.success("Registration completed. Please login.")
+      }
+      else {
+        toast.error("Unable to register. Please try again");
+      }
+    } catch (error) {
+      toast.error("Unable to register. Please try again");
+    }
+  }
+
   return (
     <div className="register-container">
       <div className="row">
@@ -9,22 +41,31 @@ const Register = () => {
           <div className="card border-0 shadow rounded-3 my-5">
             <div className="card-body p-4 p-sm-5">
               <h5 className="card-title text-center mb-5 fw-light fs-5">Sign Up</h5>
-              <form>
+              <form onSubmit={onSubmitHandler}>
                 <div className="form-floating mb-3">
-                  <input type="text" className="form-control" id="floatingName" placeholder="John Doe" />
-                    <label htmlFor="floatingName">Full Name</label>
+                  <input type="text" className="form-control" id="floatingName" placeholder="John Doe"
+                    name='name'
+                    onChange={onChangeHandler}
+                    value={data.name} required />
+                  <label htmlFor="floatingName">Full Name</label>
                 </div>
                 <div className="form-floating mb-3">
-                  <input type="email" className="form-control" id="floatingEmail" placeholder="john.doe@example.com" />
-                    <label htmlFor="floatingEmail">Email</label>
+                  <input type="email" className="form-control" id="floatingEmail" placeholder="john.doe@example.com"
+                    name='email'
+                    onChange={onChangeHandler}
+                    value={data.email} required />
+                  <label htmlFor="floatingEmail">Email</label>
                 </div>
                 <div className="form-floating mb-3">
-                  <input type="password" className="form-control" id="floatingPassword" placeholder="Password" />
-                    <label htmlFor="floatingPassword">Password</label>
+                  <input type="password" className="form-control" id="floatingPassword" placeholder="Password"
+                    name='password'
+                    onChange={onChangeHandler}
+                    value={data.password} required />
+                  <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <div className="d-grid">
                   <button className="btn btn-outline-primary btn-login text-uppercase" type="submit">Register</button>
-                    <button className="btn btn-outline-danger btn-login text-uppercase mt-2" type="reset">Reset</button>
+                  <button className="btn btn-outline-danger btn-login text-uppercase mt-2" type="reset">Reset</button>
                 </div>
                 <div className="mt-4">
                   Already have an account? <Link to={'/login'} >Sign in</Link>

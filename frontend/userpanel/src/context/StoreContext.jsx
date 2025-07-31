@@ -10,6 +10,8 @@ export const StoreContextProvider = (props) => {
 
     const [quantites, setQuantites] = useState({})
 
+    const [token, setToken] = useState("");
+
     const increaseQty = (foodId) => {                
         setQuantites((prev) => ({...prev, [foodId]: (prev[foodId] || 0) + 1 }));
     }
@@ -31,7 +33,9 @@ export const StoreContextProvider = (props) => {
         increaseQty,
         decreaseQty,
         quantites,
-        removeFromCart
+        removeFromCart,
+        token,
+        setToken
     };
 
     useEffect(() => {

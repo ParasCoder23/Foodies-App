@@ -46,5 +46,4 @@ public class CartController {
         }
         return cartService.removeFromCart(request);
     }
-
 }
