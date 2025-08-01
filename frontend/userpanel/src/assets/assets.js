@@ -10,10 +10,13 @@ import rolls from './rolls.png'
 import salad from './salad.jpeg'
 import checkout from './checkout.png'
 
+import profile from './profile.png'
+
 export const assets = {
     logo,
     cart,
-    checkout
+    checkout,
+    profile
 }
 
 export const categories = [

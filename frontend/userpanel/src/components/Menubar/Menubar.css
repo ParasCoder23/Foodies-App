@@ -2,3 +2,7 @@
     font-weight: bold !important;
     color: tomato !important;
 }
+
+.dropdown-menu li{
+    cursor: pointer;
+}

@@ -7,11 +7,17 @@ import { StoreContext } from '../../context/StoreContext';
 const Menubar = () => {
     const [active, setActive] = useState('home');
 
-    const {quantites} = useContext(StoreContext);
-    
+    const { quantites, token, setToken } = useContext(StoreContext);
+
     const uniqueItemsInCart = Object.values(quantites).filter(qty => qty > 0).length
 
     const navigate = useNavigate();
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        setToken("");
+        navigate("/");
+    }
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -28,7 +34,7 @@ const Menubar = () => {
                             <Link className={active === "home" ? "nav-link active" : "nav-link"} to="/" onClick={() => setActive('home')}>Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className={active === "explore" ? "nav-link active" : "nav-link"} to="/explore"  onClick={() => setActive('explore')}>Explore</Link>
+                            <Link className={active === "explore" ? "nav-link active" : "nav-link"} to="/explore" onClick={() => setActive('explore')}>Explore</Link>
                         </li>
                         <li className="nav-item">
                             <Link className={active === "contact-us" ? "nav-link active" : "nav-link"} to="contact" onClick={() => setActive('contact-us')}>Contact Us</Link>
@@ -40,8 +46,23 @@ const Menubar = () => {
                                 <img src={assets.cart} alt="cart" height={32} width={32} />
                                 <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning'>{uniqueItemsInCart}</span>
                             </div></Link>
-                        <button className="btn btn-outline-primary" onClick={() => navigate('/login')}>Login</button>
-                        <button className="btn btn-outline-success" onClick={() => navigate('/register')}>Register</button>
+
+                        {
+                            !token ?
+                                <>
+                                    <button className="btn btn-outline-primary" onClick={() => navigate('/login')}>Login</button>
+                                    <button className="btn btn-outline-success" onClick={() => navigate('/register')}>Register</button>
+                                </> :
+                                <div className="dropdown ">
+                                    <a href="" className='d-block link-body-emphasis text-decoration-none dropdown-toggle' data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src={assets.profile} alt="" width={32} height={32} className='rounded-circle'/>
+                                        </a>
+                                    <ul className='dropdown-menu text-small'>
+                                        <li className='dropdown-item' onClick={() => navigate('myorders')}>Orders</li>
+                                        <li className='dropdown-item' onClick={logout}>Logout</li>
+                                    </ul>
+                                </div>
+                        }
 
                     </div>
                 </div>
