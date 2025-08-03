@@ -7,7 +7,7 @@ import { StoreContext } from '../../context/StoreContext';
 const Menubar = () => {
     const [active, setActive] = useState('home');
 
-    const { quantites, token, setToken } = useContext(StoreContext);
+    const { quantites, token, setToken, setQuantites } = useContext(StoreContext);
 
     const uniqueItemsInCart = Object.values(quantites).filter(qty => qty > 0).length
 
@@ -16,6 +16,7 @@ const Menubar = () => {
     const logout = () => {
         localStorage.removeItem('token');
         setToken("");
+        setQuantites({});
         navigate("/");
     }
 
@@ -48,22 +49,22 @@ const Menubar = () => {
                             </div></Link>
 
                         {
-                            !token ?
+                            !token ? (
                                 <>
                                     <button className="btn btn-outline-primary" onClick={() => navigate('/login')}>Login</button>
                                     <button className="btn btn-outline-success" onClick={() => navigate('/register')}>Register</button>
-                                </> :
-                                <div className="dropdown ">
-                                    <a href="" className='d-block link-body-emphasis text-decoration-none dropdown-toggle' data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src={assets.profile} alt="" width={32} height={32} className='rounded-circle'/>
+                                </>) :
+                                (
+                                    <div className="dropdown text-end">
+                                        <a href="" className='d-block link-body-emphasis text-decoration-none dropdown-toggle' data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src={assets.profile} alt="" width={32} height={32} className='rounded-circle' />
                                         </a>
-                                    <ul className='dropdown-menu text-small'>
-                                        <li className='dropdown-item' onClick={() => navigate('myorders')}>Orders</li>
-                                        <li className='dropdown-item' onClick={logout}>Logout</li>
-                                    </ul>
-                                </div>
-                        }
-
+                                        <ul className='dropdown-menu text-small'>
+                                            <li className='dropdown-item' onClick={() => navigate('/myorders')}>Orders</li>
+                                            <li className='dropdown-item' onClick={logout}>Logout</li>
+                                        </ul>
+                                    </div>
+                                )}
                     </div>
                 </div>
             </div>
