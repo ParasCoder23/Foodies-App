@@ -16,4 +16,8 @@ public interface OrderService {
     List<OrderResponse> getUserOrders();
 
     void removeOrder(String orderId);
+
+    List<OrderResponse> getOrdersOfAllUsers();
+
+    void updateOrderStatus(String orderId, String status);
 }

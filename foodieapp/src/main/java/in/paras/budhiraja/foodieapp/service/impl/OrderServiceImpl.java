@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
 
         RazorpayClient razorpayClient = new RazorpayClient(RAZORPAY_KEY, RAZORPAY_SECRET);
         JSONObject orderRequest = new JSONObject();
-        orderRequest.put("amount", newOrder.getAmount());
+        orderRequest.put("amount", newOrder.getAmount() * 100);
         orderRequest.put("currency", "INR");
         orderRequest.put("payment_capture", 1);
 
@@ -72,7 +72,6 @@ public class OrderServiceImpl implements OrderService {
         existingOrder.setRazorpaySignature(paymentData.get("razorpay_signature"));
         existingOrder.setRazorpayPaymentId(paymentData.get("razorpay_payment_id"));
         orderRepository.save(existingOrder);
-
         if("paid".equalsIgnoreCase(status)){
             cartRepository.deleteByUserId(existingOrder.getUserId());
         }
@@ -82,12 +81,26 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderResponse> getUserOrders() {
         String loggedInUserId = userService.findByUserId();
         List<OrderEntity> list = orderRepository.findByUserId(loggedInUserId);
-        return list.stream().map(entity -> convertToResponse(entity).collect(Collectors.toList()));
+        return list.stream().map(entity -> convertToResponse(entity)).collect(Collectors.toList());
     }
 
     @Override
     public void removeOrder(String orderId) {
         orderRepository.deleteById(orderId);
+    }
+
+    @Override
+    public List<OrderResponse> getOrdersOfAllUsers() {
+        List<OrderEntity> list = orderRepository.findAll();
+        return list.stream().map(entity -> convertToResponse(entity)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateOrderStatus(String orderId, String status) {
+        OrderEntity entity = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException(""));
+        entity.setOrderStatus(status);
+        orderRepository.save(entity);
     }
 
     private OrderResponse convertToResponse(OrderEntity newOrder) {
