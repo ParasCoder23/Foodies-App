@@ -11,12 +11,13 @@ import salad from './salad.jpeg'
 import checkout from './checkout.png'
 
 import profile from './profile.png'
-
+import delivery from './delivery.png'
 export const assets = {
     logo,
     cart,
     checkout,
-    profile
+    profile,
+    delivery
 }
 
 export const categories = [

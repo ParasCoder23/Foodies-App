@@ -118,7 +118,7 @@ const PlaceOrder = () => {
         }
     }
 
-    const deleteOrder = async () => {
+    const deleteOrder = async (orderId) => {
         try {
             await axios.delete("http://localhost:8080/api/orders/" + orderId, { headers: { 'Authorization': `Bearer ${token}` } });
         } catch (error) {
@@ -128,7 +128,7 @@ const PlaceOrder = () => {
 
     const clearCart = async () => {
         try {
-            await axios.delete("http://localhost:8080/api/cart" + orderId, { headers: { 'Authorization': `Bearer ${token}` } });
+            await axios.delete("http://localhost:8080/api/cart" , { headers: { 'Authorization': `Bearer ${token}` } });
             setQuantites({});
         } catch (error) {
             toast.error("Error while clearing the cart.");
