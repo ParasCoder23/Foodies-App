@@ -4,10 +4,12 @@ import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 import { calculateCartTotals } from "../../util/cartUtils";
 import axios from "axios";
-import { RAZORPAY_KEY } from "../../util/constants";
+// import { RAZORPAY_KEY } from "../../util/constants";
 import {toast} from 'react-toastify'
 
 const PlaceOrder = () => {
+
+    const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY;
 
     const { foodList, quantites, setQuantites, token } = useContext(StoreContext);
 
