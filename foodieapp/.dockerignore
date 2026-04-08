@@ -1,0 +1,12 @@
+target
+.mvn/wrapper/maven-wrapper.jar
+.git
+.gitignore
+frontend
+adminpanel
+userpanel
+**/*.log
+**/*.iml
+node_modules
+Dockerfile
+.dockerignore
